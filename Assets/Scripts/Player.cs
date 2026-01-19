@@ -4,25 +4,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {   
+    //Este script se le asingno al jugador.
+
     [SerializeField] private GameObject _plantPrefab;
-    [SerializeField] private Collider2D _collider;
     [SerializeField] private Rigidbody2D _rigidbody;
     [SerializeField] private float _jump;
 
     private bool _isGrounded = true;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-
-    }
-
-    // Update is called once per frame
+    //Este es el sitema de salto usando Grounded.
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
+        if (Input.GetKey(KeyCode.Space) && _isGrounded)
         {
             _isGrounded = false;
 
@@ -32,11 +25,24 @@ public class Player : MonoBehaviour
                 
             );
 
+        }
+ 
+    }
+    
+    //Este es para crear una collisiom entre el piso y el pinguino de esta forma este saltara.
+
+    //Importante no olvidar asignar tag al piso para que no recivamos error.
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {   
+        string tag = collision.gameObject.tag;
+        if (tag.Equals("Ground"))
+        {
             _isGrounded = true;
-
-
         }
 
-        
     }
+
+
+    
 }
